@@ -4,6 +4,7 @@ import (
 	"blog-backend/internal/database"
 	"blog-backend/internal/models"
 	"blog-backend/internal/repositorty"
+	"errors"
 	"strings"
 	"time"
 )
@@ -21,6 +22,15 @@ func NewPostService() *PostService {
 }
 
 func (s *PostService) Create(post *models.Post, tagNames []string) error {
+	// 1. 如果提供了 CategoryID，验证其是否存在
+	if post.CategoryID != nil && *post.CategoryID > 0 {
+		var count int64
+		database.DB.Model(&models.Category{}).Where("id = ?", *post.CategoryID).Count(&count)
+		if count == 0 {
+			return errors.New("category id not found")
+		}
+	}
+
 	// Generate slug from title if not provided
 	if post.Slug == "" {
 		post.Slug = generateSlug(post.Title) // strings.ToLower(strings.ReplaceAll(strings.ReplaceAll(post.Title, " ", "-"), "?", ""))

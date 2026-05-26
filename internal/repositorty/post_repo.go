@@ -29,14 +29,14 @@ func (r *PostRepository) FindAll(page, pageSize int, status string, categoryID *
 	var posts []models.Post
 	var total int64
 
-	query := database.DB.Model(&models.Post{}).Preload("User").Preload("Categody").Preload("Tags")
+	query := database.DB.Model(&models.Post{}).Preload("User").Preload("Category").Preload("Tags")
 
 	if status != "" {
 		query = query.Where("status = ?", status)
 	}
 
 	if categoryID != nil && *categoryID > 0 {
-		query = query.Where("categody_id = ?", categoryID)
+		query = query.Where("category_id = ?", categoryID)
 	}
 
 	if tagID != nil && *tagID > 0 {
