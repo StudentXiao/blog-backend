@@ -14,7 +14,7 @@ type TagHandler struct {
 
 func NewTagHandler() *TagHandler {
 	return &TagHandler{
-		service: &service.TagService{},
+		service: service.NewTagService(),
 	}
 }
 
