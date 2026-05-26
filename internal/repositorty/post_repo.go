@@ -25,13 +25,22 @@ func (r *PostRepository) FindBySlug(slug string) (*models.Post, error) {
 	return &post, err
 }
 
-func (r *PostRepository) FindAll(page, pageSize int, status string) ([]models.Post, int64, error) {
+func (r *PostRepository) FindAll(page, pageSize int, status string, categoryID *uint, tagID *uint) ([]models.Post, int64, error) {
 	var posts []models.Post
 	var total int64
 
-	query := database.DB.Model(&models.Post{}).Preload("User")
+	query := database.DB.Model(&models.Post{}).Preload("User").Preload("Categody").Preload("Tags")
+
 	if status != "" {
 		query = query.Where("status = ?", status)
+	}
+
+	if categoryID != nil && *categoryID > 0 {
+		query = query.Where("categody_id = ?", categoryID)
+	}
+
+	if tagID != nil && *tagID > 0 {
+		query = query.Joins("JOIN post_tags ON post_tags.post_id = posts.id").Where("post_tags.tag_id = ?", tagID)
 	}
 
 	query.Count(&total)

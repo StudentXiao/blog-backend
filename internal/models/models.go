@@ -58,7 +58,7 @@ type Post struct {
 	User         User           `json:"user,omitempty"`
 	CategoryID   *uint          `json:"category_id"`
 	Category     *Category      `json:"category,omitempty"`
-	Tags         string         `gorm:"many2many:post_tags;" json:"tags,omitempty"` // JSON string or comma separated
+	Tags         []Tag          `gorm:"many2many:post_tags;" json:"tags,omitempty"` // JSON string or comma separated
 	CreatedAt    time.Time      `json:"created_at"`
 	UpdatedAt    time.Time      `json:"updated_at"`
 	PublicshedAt *time.Time     `json:"published_at"`
