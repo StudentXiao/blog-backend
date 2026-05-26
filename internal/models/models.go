@@ -29,7 +29,7 @@ type Category struct {
 	ParentID    *uint          `json:"parent_id"`
 	SortOrder   int            `gorm:"default:0" json:"sort_order"`
 	CreatedAt   time.Time      `json:"created_at"`
-	UpdateAt    time.Time      `json:"updated_at"`
+	UpdatedAt   time.Time      `json:"updated_at"`
 	DeletedAt   gorm.DeletedAt `gorm:"index" json:"-"`
 	Posts       []Post         `gorm:"many2many:post_categories;" json:"posts,omitempty"`
 }
