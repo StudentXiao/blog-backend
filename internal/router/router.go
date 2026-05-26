@@ -6,6 +6,10 @@ import (
 	"blog-backend/internal/service"
 
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+
+	_ "blog-backend/docs"
 )
 
 func SetupRouter() *gin.Engine {
@@ -95,6 +99,9 @@ func SetupRouter() *gin.Engine {
 			// admin.PUT("/users/:id/role", userHandler.UpdateRole)
 		}
 	}
+
+	// 注册 Swagger UI 路由
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	return router
 }

@@ -1,0 +1,64 @@
+basePath: /api/v1
+definitions:
+  handler.RegisterRequest:
+    properties:
+      email:
+        type: string
+      password:
+        minLength: 6
+        type: string
+      username:
+        maxLength: 50
+        minLength: 3
+        type: string
+    required:
+    - email
+    - password
+    - username
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: 这是 API 的描述信息
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: 你的 API 标题
+  version: "1.0"
+paths:
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: 注册新用户账号
+      parameters:
+      - description: 注册信息
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/handler.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 注册成功
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: 参数错误
+          schema:
+            additionalProperties: true
+            type: object
+      summary: 用户注册
+      tags:
+      - 用户管理
+schemes:
+- http
+- https
+swagger: "2.0"

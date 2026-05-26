@@ -27,6 +27,16 @@ type LoginRequest struct {
 	Password string `json:"password" binding:"required"`
 }
 
+// Register 用户注册
+// @Summary      用户注册
+// @Description  注册新用户账号
+// @Tags         用户管理
+// @Accept       json
+// @Produce      json
+// @Param        request body RegisterRequest true "注册信息"
+// @Success      200  {object}  map[string]interface{}  "注册成功"
+// @Failure      400  {object}  map[string]interface{}  "参数错误"
+// @Router       /auth/register [post]
 func (h *AuthHandler) Register(c *gin.Context) {
 	var req RegisterRequest
 	if err := c.ShouldBindJSON(&req); err != nil {

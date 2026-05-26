@@ -33,3 +33,8 @@ blog-backend/
 ├── go.mod
 ├── go.sum
 └── .env.example
+
+
+
+## 接口文档生成
+swag init --dir ./ --parseDependency --parseInternal --output ./docs
