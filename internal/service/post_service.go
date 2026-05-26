@@ -7,12 +7,14 @@ import (
 )
 
 type PostService struct {
-	postRepo *repositorty.PostRepository
+	postRepo   *repositorty.PostRepository
+	tagService *TagService
 }
 
 func NewPostService() *PostService {
 	return &PostService{
-		postRepo: &repositorty.PostRepository{},
+		postRepo:   &repositorty.PostRepository{},
+		tagService: NewTagService(),
 	}
 }
 
